@@ -48,7 +48,7 @@
 				</li>
 
 				<!-- 主页 -->
-				<c:if test="${fn:contains(sessionScope.authos, '1') && !fn:contains(sessionScope.authos, '10')}">
+				<c:if test="${fn:contains(sessionScope.authos, '1') && !fn:contains(sessionScope.authos, '10') && !fn:contains(sessionScope.authos, '14')}">
 					<li class="line dk"></li>
 					<li><a class="J_menuItem" href="main/map/map"> <i
 							class="fa fa-home"></i> <span class="nav-label">主页</span>
@@ -60,6 +60,14 @@
 					<li class="line dk"></li>
 					<li><a class="J_menuItem" href="main/map/workerMap"> <i
 							class="fa fa-home"></i> <span class="nav-label">主页(司机)</span>
+					</a></li>
+				</c:if>
+				
+								<!-- 司机主页 -->
+				<c:if test="${fn:contains(sessionScope.authos, '14')}" >
+					<li class="line dk"></li>
+					<li><a class="J_menuItem" href="main/map/siteManagerMap"> <i
+							class="fa fa-home"></i> <span class="nav-label">主页(工厂人员)</span>
 					</a></li>
 				</c:if>
 
@@ -197,12 +205,16 @@
 		</div>
 		<div class="row J_mainContent" id="content-main">
 		
-		<c:if test="${fn:contains(sessionScope.authos, '1') && !fn:contains(sessionScope.authos, '10')}" >
+		<c:if test="${fn:contains(sessionScope.authos, '1') && !fn:contains(sessionScope.authos, '10') && !fn:contains(sessionScope.authos, '14')}" >
 			<iframe id="J_iframe" width="100%" height="100%" src="main/map/map"
 					frameborder="0" data-id="index_v1.html" seamless></iframe>
 		</c:if>
 		<c:if test="${fn:contains(sessionScope.authos, '10')}">
 			<iframe id="J_iframe" width="100%" height="100%" src="main/map/workerMap"
+					frameborder="0" data-id="index_v1.html" seamless></iframe>
+		</c:if>
+		<c:if test="${fn:contains(sessionScope.authos, '14')}">
+			<iframe id="J_iframe" width="100%" height="100%" src="main/map/siteManagerMap"
 					frameborder="0" data-id="index_v1.html" seamless></iframe>
 		</c:if>
 		</div>

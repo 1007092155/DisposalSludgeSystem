@@ -206,7 +206,7 @@ public class CarController {
 	public List<Car> queryCarUnassign() {
 		log.info("查询空闲车辆");
 		try{
-			return carService.queryCarUnassign();
+			return carService.queryTreatmentCarUnassign();
 		}catch (Exception e) {
 			// TODO: handle exception
 			log.info(e);
@@ -220,6 +220,40 @@ public class CarController {
 		log.info("查询空闲司机");
 		try{
 			return userService.queryDriverUnassign();
+		}catch (Exception e) {
+			// TODO: handle exception
+			log.info(e);
+			return null;
+		}
+	}
+	
+	/**
+	 * @description:为站点分配运输车辆（根据最短直线距离）
+	 */
+	@RequestMapping("assignCarrier")
+	@ResponseBody
+	public Car assignCarrier(@RequestParam("id") int siteId,@RequestParam("longitude") String siteLongitude,@RequestParam("latitude") String siteLatitude) {
+		log.info("为site"+siteId+"分配车辆");
+		double longitude = Double.valueOf(siteLongitude);
+		double latitude = Double.valueOf(siteLatitude);
+		try{
+			return carService.assignCarrier(siteId,longitude,latitude);
+		}catch (Exception e) {
+			// TODO: handle exception
+			log.info(e);
+			return null;
+		}
+	}
+	
+	/**
+	 * @description:查找为站点分配的车辆
+	 */
+	@RequestMapping("queryCarBySiteId")
+	@ResponseBody
+	public List<Car> queryCarBySiteId(@RequestParam("id") int siteId) {
+		log.info("查找为site"+siteId+"分配的车辆列表");
+		try{
+			return carService.queryCarBySiteId(siteId);
 		}catch (Exception e) {
 			// TODO: handle exception
 			log.info(e);

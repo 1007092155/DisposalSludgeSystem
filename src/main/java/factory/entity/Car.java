@@ -15,6 +15,7 @@ public class Car {
 	private User driver;
 	private Site site;
 	private int siteId;
+	private int carType;
 	public int getId() {
 		return id;
 	}
@@ -92,6 +93,12 @@ public class Car {
 	 */
 	public void setSite(Site site) {
 		this.site = site;
+	}
+	public int getCarType() {
+		return carType;
+	}
+	public void setCarType(int carType) {
+		this.carType = carType;
 	}
 	
 }

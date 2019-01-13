@@ -1,17 +1,7 @@
 package factory.serviceimpl;
 
-import java.io.BufferedWriter;
-import java.io.PrintWriter;
-import java.lang.reflect.Method;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +12,7 @@ import factory.entity.Car;
 import factory.entity.User;
 import factory.exception.DataNoneException;
 import factory.service.CarService;
+import factory.util.GpsUtil;
 
 
 @Service
@@ -151,14 +142,52 @@ public class CarServiceImpl implements CarService{
 		return cars;
 	}
 	@Override
-	public List<Car> queryCarUnassign() {
+	public List<Car> queryTreatmentCarUnassign() {
 		// TODO Auto-generated method stub
 		List<Car> cars=new ArrayList<Car>();
-		cars.addAll(carDao.queryCarUnassign());
+		cars.addAll(carDao.queryTreatmentCarUnassign());
 		for(Car car:cars){
 			System.out.println(car.getLicense());
 		}
 		return cars;
 	}
-
+	@Override
+	public List<Car> queryCarrierUnassign() {
+		// TODO Auto-generated method stub
+		List<Car> cars=new ArrayList<Car>();
+		cars.addAll(carDao.queryCarrierUnassign());
+		for(Car car:cars){
+			System.out.println(car.getLicense());
+		}
+		return cars;
+	}
+	
+	@Override
+	public Car assignCarrier(int siteId, double siteLongitude, double siteLatitude) {
+		// TODO Auto-generated method stub
+		List<Car> cars=new ArrayList<Car>();
+		cars.addAll(carDao.queryCarrierUnassign());
+		if(cars.size() == 0) return null;
+		double minDistance = Double.MAX_VALUE;
+		Car car = new Car();
+		for(int i = 0; i < cars.size();i++){
+			double dis = GpsUtil.getDistance(siteLongitude,siteLatitude,cars.get(i).getLongitude(),cars.get(i).getLatitude());
+			System.out.println("id: "+ cars.get(i).getId() + "¾àÀë: "+ dis);
+			if(dis < minDistance){
+				minDistance = dis;
+				car = cars.get(i);
+			}
+		}
+		return car;
+	}
+	@Override
+	public List<Car> queryCarBySiteId(int siteId) {
+		// TODO Auto-generated method stub
+		List<Car> cars=new ArrayList<Car>();
+		cars.addAll(carDao.queryCarBySiteId(siteId));
+		for(Car car:cars){
+			System.out.println(car.getLicense());
+		}
+		return cars;
+	}
 }

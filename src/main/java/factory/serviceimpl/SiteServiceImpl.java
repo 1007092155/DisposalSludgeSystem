@@ -178,6 +178,12 @@ public class SiteServiceImpl implements SiteService{
 		// TODO Auto-generated method stub
 		return recordDao.countRecordOfCarNullBySiteId(siteId);
 	}
+
+	@Override
+	public Site querySiteMapBySiteId(int siteId) {
+		// TODO Auto-generated method stub
+		return siteDao.querySiteMapBySiteId(siteId);
+	}
 	
 	
 

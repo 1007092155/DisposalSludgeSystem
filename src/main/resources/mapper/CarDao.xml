@@ -14,6 +14,7 @@
 		<result property="sensorIdSet" column="sensor_id_set" />
 		<result property="status" column="status" />
 		<result property="siteId" column="site_id" />
+		<result property="carType" column="car_type" />
 		<association property="driver" javaType="factory.entity.User">
 			<id property="id" column="id" />
 			<result property="username" column="username" />
@@ -256,11 +257,27 @@
 		id=#{carId}
 	</update>
 	
-	<select id="queryCarUnassign" resultMap="carMap">
+	<select id="queryTreatmentCarUnassign" resultMap="carMap">
 		SELECT car.*,user.id,user.realname,user.telephone 
 		FROM car LEFT JOIN user 
 		ON car.driver_id=user.id 
-		WHERE car.del_status=0 AND car.status=0 AND car.driver_id IS NOT NULL
+		WHERE car.del_status=0 AND (car.status=0 OR car.status=4) AND car.driver_id IS NOT NULL AND car.car_type=0
+	</select>
+	
+	<select id="queryCarrierUnassign" resultMap="carMap">
+		SELECT car.*,user.id,user.realname,user.telephone 
+		FROM car LEFT JOIN user 
+		ON car.driver_id=user.id 
+		WHERE car.del_status=0 AND car.status=0 AND car.driver_id IS NOT NULL AND car.car_type=1
+	</select>
+	
+	<select id="queryCarBySiteId" resultMap="carMap">
+		SELECT car.*,site.id
+		sid
+		FROM car LEFT JOIN user ON car.driver_id=user.id
+		LEFT JOIN site ON
+		car.site_id=site.id
+		WHERE car.del_status=0 AND car.site_id=#{siteId}
 	</select>
 	
 </mapper>

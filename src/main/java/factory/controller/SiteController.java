@@ -250,4 +250,18 @@ public class SiteController {
 			return 0;
 		}
 	}
+	/**
+	 * @description:根据站点编号查找站点地图信息
+	 */
+	@RequestMapping("querySiteMapBySiteId")
+	@ResponseBody
+	public Site querySiteMapBySiteId(@RequestParam("siteId") int siteId) {
+		log.info("查询站点"+siteId);
+		Site site=siteService.querySiteMapBySiteId(siteId);
+		if(site.getSensorIdSet()!=null&&site.getSensorIdSet()!="")
+			site.setSensors(sensorService.querySensorTypeByIdSet(site.getSensorIdSet()));
+		log.info(site.toString());
+		return site;
+
+	}
 }

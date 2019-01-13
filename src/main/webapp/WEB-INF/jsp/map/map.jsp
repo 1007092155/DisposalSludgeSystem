@@ -265,7 +265,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	var map = new BMap.Map("allmap");
 	window.map = map;
-	var point = new BMap.Point(112.971916, 28.197967);
+	//var point = new BMap.Point(112.971916, 28.197967);
 
 	map.addControl(new BMap.NavigationControl()); // 添加平移缩放控件
 	map.addControl(new BMap.ScaleControl()); // 添加比例尺控件
@@ -273,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	map.enableScrollWheelZoom(); //启用滚轮放大缩小
 	//	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
 	map.disable3DBuilding();
-	map.centerAndZoom(point, 13);
+	map.centerAndZoom("深圳市", 11);
 	map.setMapStyle({
 		style : 'light'
 	}); //设置地图样式
@@ -745,10 +745,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#dealSiteId").val(siteId);
 		$.ajax({
   				type : "POST",
-  				url : "car/queryCarUnassign",
+  				url : "car/queryTreatmentCarUnassign",
   				success : function(carList) {
   					if(jQuery.isEmptyObject(carList))
-  						alert("暂无空闲司机");
+  						alert("暂无空闲车辆");
   					else{
   						$("#driverSelect").empty();
   						$.each(carList,function(i, car) {

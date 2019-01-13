@@ -46,4 +46,6 @@ public interface SiteService {
 	public List<User> queryAllManagerBySiteId(String siteId);
 
 	public int countRecordOfCarNullBySiteId(int siteId);
+	
+	public Site querySiteMapBySiteId(int siteId);
 }

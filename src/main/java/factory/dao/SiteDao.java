@@ -40,4 +40,6 @@ public interface SiteDao {
 	public List<Site> queryMapSite(@Param("queryStr") String queryStr);
 	
 	public List<Site> querySiteServedByOneDriver(@Param("driverId") int driverId);
+	
+	public Site querySiteMapBySiteId(@Param("siteId") int siteId);
 }
